@@ -1,0 +1,17 @@
+ros-noetic-controller-stopper (2.1.0-1buster) buster; urgency=high
+
+  * Drop old C++ compiler flags (#577 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/577>)
+    Co-authored-by: Jochen Sprickerhof <mailto:git@jochen.sprickerhof.de>
+  * Remove boilerplate comments from package.xml files (#528 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/528>)
+  * Contributors: Felix Exner, Michael Görner
+
+ -- Felix Exner <exner@fzi.de>  Wed, 07 Dec 2022 23:00:00 -0000
+
+ros-noetic-controller-stopper (2.0.0-1buster) buster; urgency=high
+
+  * Initial release
+  * Contributors: Felix Exner, Felix Mauch, G.A. vd. Hoorn, Tristan Schnell
+
+ -- Felix Exner <exner@fzi.de>  Mon, 06 Sep 2021 22:00:00 -0000
+
+
