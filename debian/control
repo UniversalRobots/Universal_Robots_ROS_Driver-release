@@ -1,0 +1,12 @@
+Source: ros-noetic-controller-stopper
+Section: misc
+Priority: optional
+Maintainer: Felix Exner <exner@fzi.de>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-catkin, ros-noetic-controller-manager-msgs, ros-noetic-roscpp, ros-noetic-std-msgs
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-noetic-controller-stopper
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-controller-manager-msgs, ros-noetic-roscpp, ros-noetic-std-msgs
+Description: A small helper node that stops and restarts ROS controllers based on a boolean status topic.
