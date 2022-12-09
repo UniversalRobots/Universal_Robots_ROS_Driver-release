@@ -1,0 +1,12 @@
+Source: ros-melodic-controller-stopper
+Section: misc
+Priority: optional
+Maintainer: Felix Exner <exner@fzi.de>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin, ros-melodic-controller-manager-msgs, ros-melodic-roscpp, ros-melodic-std-msgs
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-melodic-controller-stopper
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-controller-manager-msgs, ros-melodic-roscpp, ros-melodic-std-msgs
+Description: A small helper node that stops and restarts ROS controllers based on a boolean status topic.
