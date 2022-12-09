@@ -1,0 +1,12 @@
+Source: ros-melodic-ur-robot-driver
+Section: misc
+Priority: optional
+Maintainer: Felix Exner <exner@fzi.de>
+Build-Depends: debhelper (>= 9.0.0), libboost-all-dev, ros-melodic-actionlib, ros-melodic-catkin, ros-melodic-control-msgs, ros-melodic-controller-manager, ros-melodic-geometry-msgs, ros-melodic-hardware-interface, ros-melodic-industrial-robot-status-interface, ros-melodic-kdl-parser, ros-melodic-pass-through-controllers, ros-melodic-pluginlib, ros-melodic-roscpp, ros-melodic-rostest <!nocheck>, ros-melodic-scaled-joint-trajectory-controller, ros-melodic-sensor-msgs, ros-melodic-speed-scaling-interface, ros-melodic-speed-scaling-state-controller, ros-melodic-std-srvs, ros-melodic-tf, ros-melodic-tf2-geometry-msgs, ros-melodic-tf2-msgs, ros-melodic-trajectory-msgs, ros-melodic-ur-client-library, ros-melodic-ur-dashboard-msgs, ros-melodic-ur-msgs
+Homepage: http://wiki.ros.org/ur_robot_driver
+Standards-Version: 3.9.2
+
+Package: ros-melodic-ur-robot-driver
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-actionlib, ros-melodic-cartesian-trajectory-controller, ros-melodic-control-msgs, ros-melodic-controller-manager, ros-melodic-controller-stopper, ros-melodic-force-torque-sensor-controller, ros-melodic-geometry-msgs, ros-melodic-hardware-interface, ros-melodic-industrial-robot-status-controller, ros-melodic-joint-state-controller, ros-melodic-joint-trajectory-controller, ros-melodic-kdl-parser, ros-melodic-pass-through-controllers, ros-melodic-pluginlib, ros-melodic-robot-state-publisher, ros-melodic-roscpp, ros-melodic-scaled-joint-trajectory-controller, ros-melodic-sensor-msgs, ros-melodic-speed-scaling-interface, ros-melodic-speed-scaling-state-controller, ros-melodic-std-srvs, ros-melodic-tf, ros-melodic-tf2-geometry-msgs, ros-melodic-tf2-msgs, ros-melodic-trajectory-msgs, ros-melodic-twist-controller, ros-melodic-ur-client-library, ros-melodic-ur-dashboard-msgs, ros-melodic-ur-description, ros-melodic-ur-msgs, ros-melodic-velocity-controllers, socat
+Description: The new driver for Universal Robots UR3, UR5 and UR10 robots with CB3 controllers and the e-series.
