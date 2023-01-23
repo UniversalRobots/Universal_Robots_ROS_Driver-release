@@ -2,6 +2,9 @@
 Changelog for package ur_dashboard_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.1.1 (2023-01-23)
+------------------
+
 2.1.0 (2022-12-08)
 ------------------
 * Use the RobotMode message inside the SetMode action (`#381 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/381>`_)
