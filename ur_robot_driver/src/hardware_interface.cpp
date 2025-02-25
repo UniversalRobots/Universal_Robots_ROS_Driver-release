@@ -247,7 +247,7 @@ bool HardwareInterface::init(ros::NodeHandle& root_nh, ros::NodeHandle& robot_hw
     }
     tool_comm_setup->setStopBits(stop_bits);
 
-    int rx_idle_chars;
+    float rx_idle_chars;
     // Number of idle chars for the RX unit used for tool communication. Will be set as soon as the UR-Program on the
     // robot is started. Valid values: min=1.0, max=40.0
     //
@@ -261,7 +261,7 @@ bool HardwareInterface::init(ros::NodeHandle& root_nh, ros::NodeHandle& robot_hw
     tool_comm_setup->setRxIdleChars(rx_idle_chars);
     tool_comm_setup->setParity(static_cast<urcl::Parity>(parity));
 
-    int tx_idle_chars;
+    float tx_idle_chars;
     // Number of idle chars for the TX unit used for tool communication. Will be set as soon as the UR-Program on the
     // robot is started. Valid values: min=0.0, max=40.0
     //
@@ -435,8 +435,9 @@ bool HardwareInterface::init(ros::NodeHandle& root_nh, ros::NodeHandle& robot_hw
   // doing. Using this with other controllers might lead to unexpected behaviors.
   set_speed_slider_srv_ = robot_hw_nh.advertiseService("set_speed_slider", &HardwareInterface::setSpeedSlider, this);
 
-  // Service to set any of the robot's IOs
+  // Services to set any of the robot's IOs
   set_io_srv_ = robot_hw_nh.advertiseService("set_io", &HardwareInterface::setIO, this);
+  set_analog_output_srv_ = robot_hw_nh.advertiseService("set_analog_output", &HardwareInterface::setAnalogOutput, this);
 
   if (headless_mode)
   {
@@ -459,6 +460,10 @@ bool HardwareInterface::init(ros::NodeHandle& root_nh, ros::NodeHandle& robot_hw
   // trajectories to the UR robot.
   activate_spline_interpolation_srv_ = robot_hw_nh.advertiseService(
       "activate_spline_interpolation", &HardwareInterface::activateSplineInterpolation, this);
+
+  // Calling this service will return the software version of the robot.
+  get_robot_software_version_srv =
+      robot_hw_nh.advertiseService("get_robot_software_version", &HardwareInterface::getRobotSoftwareVersion, this);
 
   ur_driver_->startRTDECommunication();
   ROS_INFO_STREAM_NAMED("hardware_interface", "Loaded ur_robot_driver hardware_interface");
@@ -1086,7 +1091,7 @@ bool HardwareInterface::stopControl(std_srvs::TriggerRequest& req, std_srvs::Tri
 bool HardwareInterface::setSpeedSlider(ur_msgs::SetSpeedSliderFractionRequest& req,
                                        ur_msgs::SetSpeedSliderFractionResponse& res)
 {
-  if (req.speed_slider_fraction >= 0.01 && req.speed_slider_fraction <= 1.0 && ur_driver_ != nullptr)
+  if (req.speed_slider_fraction >= 0.0 && req.speed_slider_fraction <= 1.0 && ur_driver_ != nullptr)
   {
     res.success = ur_driver_->getRTDEWriter().sendSpeedSlider(req.speed_slider_fraction);
   }
@@ -1131,6 +1136,16 @@ bool HardwareInterface::setIO(ur_msgs::SetIORequest& req, ur_msgs::SetIOResponse
   return true;
 }
 
+bool HardwareInterface::setAnalogOutput(ur_msgs::SetAnalogOutputRequest& req, ur_msgs::SetAnalogOutputResponse& res)
+{
+  if (ur_driver_)
+  {
+    res.success = ur_driver_->getRTDEWriter().sendStandardAnalogOutput(
+        req.data.pin, req.data.state, static_cast<urcl::AnalogOutputType>(req.data.domain));
+  }
+  return true;
+}
+
 bool HardwareInterface::resendRobotProgram(std_srvs::TriggerRequest& req, std_srvs::TriggerResponse& res)
 {
   res.success = ur_driver_->sendRobotProgram();
@@ -1172,6 +1187,17 @@ bool HardwareInterface::setPayload(ur_msgs::SetPayloadRequest& req, ur_msgs::Set
   cog[1] = req.center_of_gravity.y;
   cog[2] = req.center_of_gravity.z;
   res.success = this->ur_driver_->setPayload(req.mass, cog);
+  return true;
+}
+
+bool HardwareInterface::getRobotSoftwareVersion(ur_msgs::GetRobotSoftwareVersionRequest& req,
+                                                ur_msgs::GetRobotSoftwareVersionResponse& res)
+{
+  urcl::VersionInformation version_info = this->ur_driver_->getVersion();
+  res.major = version_info.major;
+  res.minor = version_info.minor;
+  res.bugfix = version_info.bugfix;
+  res.build = version_info.build;
   return true;
 }
 
